@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Missão 30 Dias</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #F5F5F5 0%, #FFE4E6 50%, #FADADD 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 80px 0 60px;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            color: #D4627A;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            color: #555;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #D4627A, #FF2D2D);
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+        .bubble {
+            position: relative;
+            width: 45%;
+            margin: 40px 0;
+            background: white;
+            padding: 24px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(212, 98, 122, 0.2);
+            z-index: 2;
+        }
+        .bubble::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            width: 0;
+            height: 0;
+            border: 12px solid transparent;
+        }
+        .bubble.left {
+            margin-right: 55%;
+        }
+        .bubble.left::before {
+            right: -24px;
+            border-left-color: white;
+        }
+        .bubble.right {
+            margin-left: 55%;
+        }
+        .bubble.right::before {
+            left: -24px;
+            border-right-color: white;
+        }
+        .bubble h3 {
+            color: #D4627A;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+        .bubble p {
+            font-size: 1rem;
+            color: #555;
+        }
+        /* Mobile Timeline */
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+            .bubble {
+                width: calc(100% - 70px);
+                margin-left: 70px !important;
+                margin-right: 0 !important;
+            }
+            .bubble::before {
+                left: -24px !important;
+                border-right-color: white !important;
+                border-left-color: transparent !important;
+                right: auto !important;
+            }
+        }
+        /* Sections */
+        section {
+            padding: 60px 0;
+        }
+        h2 {
+            text-align: center;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            color: #D4627A;
+            margin-bottom: 3rem;
+        }
+        /* Pilares */
+        .pilares {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(212, 98, 122, 0.15);
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card h3 {
+            color: #D4627A;
+            margin-bottom: 1rem;
+        }
+        /* Recebe */
+        .recebe ul {
+            list-style: none;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .recebe li {
+            background: white;
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+            padding-left: 50px;
+        }
+        .recebe li::before {
+            content: '✓';
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #FF2D2D;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        /* Garantia */
+        .garantia {
+            text-align: center;
+            background: white;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(212, 98, 122, 0.2);
+        }
+        .garantia p {
+            font-size: 1.2rem;
+            color: #555;
+        }
+        /* CTA */
+        .cta {
+            text-align: center;
+            padding: 100px 0;
+        }
+        .buy-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #D4627A, #FF2D2D);
+            color: white;
+            padding: 20px 50px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: 0 15px 40px rgba(212, 98, 122, 0.4);
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .buy-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 50px rgba(212, 98, 122, 0.5);
+        }
+        /* Footer */
+        footer {
+            background: #D4627A;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero -->
+        <section class="hero">
+            <h1>Missão 30 Dias</h1>
+            <p>Alcance resultados reais em apenas 30 dias com um plano simples e eficaz.</p>
+        </section>
+
+        <!-- Problema -->
+        <section id="problema">
+            <h2 class="container">Os problemas comuns</h2>
+            <div class="timeline">
+                <div class="bubble left">
+                    <h3>Falta de motivação</h3>
+                    <p>Você começa animado, mas desiste rápido sem consistência.</p>
+                </div>
+                <div class="bubble right">
+                    <h3>Resultados lentos</h3>
+                    <p>Esforços não trazem mudanças visíveis no curto prazo.</p>
+                </div>
+                <div class="bubble left">
+                    <h3>Hábitos difíceis</h3>
+                    <p>Dificuldade em criar rotinas que durem a longo prazo.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Solução -->
+        <section id="solucao">
+            <h2 class="container">As 4 fases da transformação</h2>
+            <div class="timeline">
+                <div class="bubble right">
+                    <h3>Fase 1: Preparação</h3>
+                    <p>Configure sua base com hábitos simples e mindset forte.</p>
+                </div>
+                <div class="bubble left">
+                    <h3>Fase 2: Aceleração</h3>
+                    <p>Aumente a intensidade para resultados rápidos.</p>
+                </div>
+                <div class="bubble right">
+                    <h3>Fase 3: Consolidação</h3>
+                    <p>Reforce ganhos e ajuste para otimização.</p>
+                </div>
+                <div class="bubble left">
+                    <h3>Fase 4: Manutenção</h3>
+                    <p>Garanta resultados duradouros com estratégias permanentes.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pilares -->
+        <section id="pilares" class="container">
+            <h2>Os 4 pilares fundamentais</h2>
+            <div class="pilares">
+                <div class="card">
+                    <h3>Nutrição</h3>
+                    <p>Planos equilibrados e práticos para energia diária.</p>
+                </div>
+                <div class="card">
+                    <h3>Treinos</h3>
+                    <p>Sessões eficientes, sem equipamentos caros.</p>
+                </div>
+                <div class="card">
+                    <h3>Mentalidade</h3>
+                    <p>Técnicas para motivação e resiliência.</p>
+                </div>
+                <div class="card">
+                    <h3>Suporte</h3>
+                    <p>Comunidade e acompanhamento personalizado.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- O que recebe -->
+        <section id="recebe" class="container">
+            <h2>O que você recebe</h2>
+            <ul>
+                <li>Plano completo de 30 dias com tarefas diárias</li>
+                <li>Vídeos explicativos e treinos guiados</li>
+                <li>Grupo exclusivo de apoio no WhatsApp</li>
+                <li>Receitas simples e lista de compras</li>
+                <li>Acompanhamento semanal por e-mail</li>
+            </ul>
+        </section>
+
+        <!-- Garantia -->
+        <section id="garantia" class="container">
+            <h2>Garantia total</h2>
+            <div class="garantia">
+                <p>Satisfação garantida ou seu dinheiro de volta em 7 dias. Sem riscos!</p>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta container">
+            <a href="https://pay.kiwify.com.br/4Ir6zcH" class="buy-btn">Comprar Agora - R$ 33,00</a>
+        </section>
+    </div>
+
+    <footer class="container">
+        <p>&copy; 2023 Missão 30 Dias. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
